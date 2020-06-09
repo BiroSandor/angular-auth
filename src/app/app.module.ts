@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import {HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
+import { ConfigService, ConfigModule } from './_service/config.service';
 
 @NgModule({
   declarations: [
@@ -14,9 +15,13 @@ import { AuthComponent } from './auth/auth.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    ConfigService,
+    ConfigModule.init(),
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
