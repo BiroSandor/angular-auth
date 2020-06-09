@@ -27,9 +27,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": [],
+              "src/styles.scss",
+              "node_modules/materialize-css/dist/css/materialize.css"
+           ],
+           "scripts": [
+             "node_modules/materialize-css/dist/js/materialize.js"
+           ],
             "es5BrowserSupport": true
           },
           "configurations": {
