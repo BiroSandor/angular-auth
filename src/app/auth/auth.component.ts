@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ConfigService } from '../_service/config.service';
 import { AuthService } from './_service/auth.service';
-import { toast } from 'materialize-css';
 
 @Component({
   selector: 'app-auth',
@@ -39,8 +37,6 @@ export class AuthComponent implements OnInit {
     },
     errorMessage => {
       this.isLoading = false;
-      let toastHtml = `<span><i class="small material-icons red-text">error_outline</i>   ${errorMessage}</span>`;
-      toast({html:toastHtml}, 100000)
     });
   }
 
