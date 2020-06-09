@@ -1,6 +1,7 @@
 
 <div class="row">
   <div class="col s6 offset-s3">
+    <app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>
     <form [formGroup]="authForm" (ngSubmit)="login()">
       <div class="input-field">
         <label for="email">Email</label>

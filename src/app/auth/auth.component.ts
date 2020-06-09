@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConfigService } from '../_service/config.service';
 import { AuthService } from './_service/auth.service';
+import { toast } from 'materialize-css';
 
 @Component({
   selector: 'app-auth',
@@ -16,7 +17,8 @@ export class AuthComponent implements OnInit {
     ) { }
   
   authForm: FormGroup;
-
+  isLoading = false;
+  error: string = null;
   ngOnInit() {
     this.authForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -25,10 +27,20 @@ export class AuthComponent implements OnInit {
   }
 
   login() {
+    this.isLoading = true;
+    if(!this.authForm.valid) {
+      return;
+    }
     const email = this.authForm.value.email;
     const password = this.authForm.value.password;
     this.authService.login(email, password).subscribe(response => {
       console.log(response)
+      this.isLoading = false;
+    },
+    errorMessage => {
+      this.isLoading = false;
+      let toastHtml = `<span><i class="small material-icons red-text">error_outline</i>   ${errorMessage}</span>`;
+      toast({html:toastHtml}, 100000)
     });
   }
 
