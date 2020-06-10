@@ -1,0 +1,20 @@
+
+    <mat-card class="offset-3 centered">
+      <!-- <app-loading-spinner [isLoading]="isLoading"></app-loading-spinner> -->
+      <form [formGroup]="authForm" (ngSubmit)="signIn()" class="form">
+        <div>
+          <mat-form-field class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput [formControlName]="'email'" id="email" type="email">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput [formControlName]="'password'" id="password" type="password">
+          </mat-form-field>
+        </div>    
+        <button mat-raised-button color="accent" type="submit" [disabled]="!authForm.valid">Sign In</button>
+        <button mat-button color="accent" type="button" [disabled]="!authForm.valid" (click)="signUp()">Sign Up</button>
+      </form>
+    </mat-card>

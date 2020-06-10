@@ -50,6 +50,10 @@ constructor(
       case 'EMAIL_NOT_FOUND':
         errorMessage = 'This email is not found!';
         break;
+
+      case 'INVALID_EMAIL':
+        errorMessage = 'This email is invalid!';
+        break;
     }
     return throwError(errorMessage);
   }

@@ -3,24 +3,37 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { AuthComponent } from './auth/auth.component';
 import { ConfigService, ConfigModule } from './_service/config.service';
-import { LoadingSpinnerComponent } from './_shared/loading-spinner/loading-spinner.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatInputModule } from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
+import { AppComponent } from './app.component';
+import { LoadingSpinnerComponent } from './_shared/loading-spinner/loading-spinner.component';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { NotificationComponent } from './_shared/notification/notification.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    SignInComponent,
+    NotificationComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatCardModule,
+    MatSnackBarModule
   ],
   providers: [
     ConfigService,

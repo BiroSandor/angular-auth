@@ -1,9 +1,6 @@
 import { Injectable, APP_INITIALIZER } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-interface ConfigObject {
-  apiKey: string;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -13,30 +10,28 @@ private _config: any;
 
 constructor(private http: HttpClient) { }
 
-load() {
-  return new Promise((resolve, reject) => {
-      this.http.get('../assets/config.json')
-          .subscribe((config) => {
-              this._config = config;
-              resolve(true);
-          },
-          (error: any) => {
-              console.error(error);
-              return Observable.throw(error.json().error || 'Server error');
-          });
-  });
-}
-
-get config() {
-  return this._config;
-}
-
-get apiKey() {
-  return this._config['apiKey'];
-}
-
-
-
+  load() {
+    return new Promise((resolve, reject) => {
+        this.http.get('../assets/config.json')
+            .subscribe((config) => {
+                this._config = config;
+                resolve(true);
+            },
+            (error: any) => {
+                console.error(error);
+                return Observable.throw(error.json().error || 'Server error');
+            });
+    });
+  }
+  
+  get config() {
+    return this._config;
+  }
+  
+  get apiKey() {
+    return this._config['apiKey'];
+  }
+  
 }
 
 export function ConfigFactory(config: ConfigService) {

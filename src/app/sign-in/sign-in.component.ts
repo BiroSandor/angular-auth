@@ -1,0 +1,63 @@
+import { Component, OnInit } from '@angular/core';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { AuthService } from '../_core/auth/_service/auth.service';
+import { NotificationService } from '../_service/notification.service';
+
+@Component({
+  selector: 'app-sign-in',
+  templateUrl: './sign-in.component.html',
+  styleUrls: ['./sign-in.component.scss']
+})
+export class SignInComponent implements OnInit {
+
+  constructor(
+    private readonly formBuilder: FormBuilder,
+    private readonly authService: AuthService,
+    private readonly notificationService: NotificationService
+    ) { }
+  
+  authForm: FormGroup;
+  isLoading = false;
+  error: string = null;
+  ngOnInit() {
+    this.authForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
+  }
+
+  signIn() {
+    this.isLoading = true;
+    if(!this.authForm.valid) {
+      return;
+    }
+    const email = this.authForm.value.email;
+    const password = this.authForm.value.password;
+    this.authService.login(email, password).subscribe(response => {
+      console.log(response)
+      this.isLoading = false;
+    },
+    errorMessage => {
+      this.notificationService.notify(errorMessage, 4000);
+      this.isLoading = false;
+    });
+  }
+
+  signUp() {
+    this.isLoading = true;
+    if(!this.authForm.valid) {
+      return;
+    }
+    const email = this.authForm.value.email;
+    const password = this.authForm.value.password;
+    this.authService.signUp(email, password).subscribe(response => {
+      console.log(response)
+      this.isLoading = false;
+    },
+    errorMessage => {
+      this.notificationService.notify(errorMessage, 4000);
+      this.isLoading = false;
+    });
+  }
+
+}
