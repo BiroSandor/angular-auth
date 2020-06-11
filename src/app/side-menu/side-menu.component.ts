@@ -10,12 +10,16 @@ import { Subscription } from 'rxjs';
 export class SideMenuComponent implements OnInit, OnDestroy {
   isAuthenticated = false;
   userSubscription: Subscription;
-  constructor(private readonly authService: AuthService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.userSubscription = this.authService.user.subscribe(user => {
       this.isAuthenticated = !!user;
     })
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 
   ngOnDestroy() {
