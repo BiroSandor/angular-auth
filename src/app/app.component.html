@@ -1,8 +1,11 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-</div>
+<mat-drawer-container class="container" autosize>
+  <mat-drawer #drawer class="sidenav" mode="side">
+    <app-side-menu></app-side-menu>
+  </mat-drawer>
 
-<router-outlet></router-outlet>
+  <div class="sidenav-content">
+    <button type="button" color="accent" mat-button (click)="drawer.toggle()"><mat-icon aria-hidden="false" aria-label="menu-open">menu</mat-icon>
+    </button>
+    <router-outlet></router-outlet>
+  </div>
+</mat-drawer-container>

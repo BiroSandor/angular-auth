@@ -10,18 +10,23 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatIconModule} from '@angular/material/icon';
 
 import { AppComponent } from './app.component';
 import { LoadingSpinnerComponent } from './_shared/loading-spinner/loading-spinner.component';
 import { SignInComponent } from './sign-in/sign-in.component';
-import { NotificationComponent } from './_shared/notification/notification.component';
+import { HomeComponent } from './home/home.component';
+import { SideMenuComponent } from './side-menu/side-menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoadingSpinnerComponent,
     SignInComponent,
-    NotificationComponent,
+    HomeComponent,
+    SideMenuComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +38,10 @@ import { NotificationComponent } from './_shared/notification/notification.compo
     MatFormFieldModule,
     MatButtonModule,
     MatCardModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatChipsModule,
+    MatSidenavModule,
+    MatIconModule
   ],
   providers: [
     ConfigService,

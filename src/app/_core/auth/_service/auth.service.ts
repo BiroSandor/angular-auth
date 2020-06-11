@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AuthResponseData, AuthResponseBaseData } from '../_model/auth.model';
-import { Observable, throwError } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ConfigService } from 'src/app/_service/config.service';
-import { catchError} from 'rxjs/operators';
+import { tap} from 'rxjs/operators';
+import { User } from '../_model/user.model';
+import { NotificationService } from 'src/app/_service/notification.service';
+import { ErrorHandlerService } from '../../error-handler/error-handler.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +15,14 @@ export class AuthService {
 
 constructor(
   private readonly http: HttpClient,
-  private readonly configService: ConfigService) { }
+  private readonly configService: ConfigService,
+  private readonly notificationService: NotificationService,
+  private readonly errorHandlerService:ErrorHandlerService) { }
   
   apiKey = this.configService.apiKey;
   loginUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.apiKey}`;
   signUpUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.apiKey}`;
+  user = new Subject<User>();
 
   signUp(email:string, password: string): Observable<AuthResponseBaseData> {
     return this.http.post<AuthResponseBaseData>(this.signUpUrl, {
@@ -24,7 +30,16 @@ constructor(
       password: password,
       returnSecureToken: true
     })
-    .pipe(catchError(this.handleError))
+    .pipe(      
+      this.errorHandlerService.handleError(),
+      tap(responseData => {
+         this.handleAuthentication(
+          responseData.email,
+          responseData.localId,
+          responseData.idToken,
+          +responseData.expiresIn
+         );
+    }))
   }
 
   login(email:string, password: string): Observable<AuthResponseData> {
@@ -33,28 +48,22 @@ constructor(
       password: password,
       returnSecureToken: true
     })    
-    .pipe(catchError(this.handleError))
+    .pipe(      
+      this.errorHandlerService.handleError(),
+      tap(responseData => {
+         this.handleAuthentication(
+          responseData.email,
+          responseData.localId,
+          responseData.idToken,
+          +responseData.expiresIn
+         );
+    }))
   }
 
-  private handleError(errorResponse: HttpErrorResponse) {
-    let errorMessage = 'Unknown error occured!';
-    if(!errorResponse.error || !errorResponse.error.error) {
-      return throwError(errorMessage);
-    }
-
-    switch(errorResponse.error.error.message) {
-      case 'EMAIL_EXISTS':
-        errorMessage = 'This email already exists!';
-        break;
-
-      case 'EMAIL_NOT_FOUND':
-        errorMessage = 'This email is not found!';
-        break;
-
-      case 'INVALID_EMAIL':
-        errorMessage = 'This email is invalid!';
-        break;
-    }
-    return throwError(errorMessage);
+  private handleAuthentication(email: string, userId:string, token:string, expiresIn: number) {
+    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000)
+    const user = new User(email, userId, token, expirationDate);
+    this.user.next(user);
   }
+
 }

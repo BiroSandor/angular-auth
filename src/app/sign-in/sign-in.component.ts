@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../_core/auth/_service/auth.service';
 import { NotificationService } from '../_service/notification.service';
+import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sign-in',
@@ -13,7 +15,8 @@ export class SignInComponent implements OnInit {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly authService: AuthService,
-    private readonly notificationService: NotificationService
+    private readonly notificationService: NotificationService,
+    private readonly router: Router
     ) { }
   
   authForm: FormGroup;
@@ -33,13 +36,10 @@ export class SignInComponent implements OnInit {
     }
     const email = this.authForm.value.email;
     const password = this.authForm.value.password;
-    this.authService.login(email, password).subscribe(response => {
-      console.log(response)
-      this.isLoading = false;
-    },
-    errorMessage => {
-      this.notificationService.notify(errorMessage, 4000);
-      this.isLoading = false;
+    this.authService.login(email, password)
+      .pipe(tap(()=>this.isLoading = false))
+      .subscribe(response => {
+        this.router.navigate['/home']
     });
   }
 
