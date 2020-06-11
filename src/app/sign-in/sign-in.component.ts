@@ -39,7 +39,7 @@ export class SignInComponent implements OnInit {
     this.authService.login(email, password)
       .pipe(tap(()=>this.isLoading = false))
       .subscribe(response => {
-        this.router.navigate['/home']
+        this.router.navigate(['/home']);
     });
   }
 

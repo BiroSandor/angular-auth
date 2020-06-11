@@ -20,6 +20,12 @@ export class ErrorHandlerService {
         this.notificationService.notify(errorMessage, 4000);
         return throwError(errorMessage);
       }
+
+      if(errorResponse.status === 401) {
+        errorMessage = 'Unauthorized, Please login!'
+        this.notificationService.notify(errorMessage, 4000);
+        return throwError(errorMessage);
+      }
   
       switch(errorResponse.error.error.message) {
         case 'EMAIL_EXISTS':

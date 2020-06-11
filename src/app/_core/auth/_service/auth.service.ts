@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { AuthResponseData, AuthResponseBaseData } from '../_model/auth.model';
-import { Observable, Subject } from 'rxjs';
-import { ConfigService } from 'src/app/_service/config.service';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { ConfigService } from 'src/app/_core/configuration/config.service';
 import { tap} from 'rxjs/operators';
 import { User } from '../_model/user.model';
-import { NotificationService } from 'src/app/_service/notification.service';
 import { ErrorHandlerService } from '../../error-handler/error-handler.service';
 
 @Injectable({
@@ -14,18 +13,16 @@ import { ErrorHandlerService } from '../../error-handler/error-handler.service';
 export class AuthService {
 
 constructor(
-  private readonly http: HttpClient,
-  private readonly configService: ConfigService,
-  private readonly notificationService: NotificationService,
-  private readonly errorHandlerService:ErrorHandlerService) { }
+  private http: HttpClient,
+  private configService: ConfigService,
+  private errorHandlerService:ErrorHandlerService) { }
   
-  apiKey = this.configService.apiKey;
-  loginUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.apiKey}`;
-  signUpUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.apiKey}`;
-  user = new Subject<User>();
+  loginUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=';
+  signUpUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
+  user = new BehaviorSubject<User>(null);
 
   signUp(email:string, password: string): Observable<AuthResponseBaseData> {
-    return this.http.post<AuthResponseBaseData>(this.signUpUrl, {
+    return this.http.post<AuthResponseBaseData>(this.signUpUrl + this.configService.getConfig('apiKey'), {
       email: email,
       password: password,
       returnSecureToken: true
@@ -43,7 +40,7 @@ constructor(
   }
 
   login(email:string, password: string): Observable<AuthResponseData> {
-    return this.http.post<AuthResponseData>(this.loginUrl, {
+    return this.http.post<AuthResponseData>(this.loginUrl + this.configService.getConfig('apiKey'), {
       email: email,
       password: password,
       returnSecureToken: true
