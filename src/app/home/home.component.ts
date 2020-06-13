@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataStorageService } from '../_service/data-storage.service';
+import { Character } from '../_model/character.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,13 +10,22 @@ import { DataStorageService } from '../_service/data-storage.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private readonly dataStorageService: DataStorageService) { }
+  constructor(private readonly dataStorageService: DataStorageService, private router: Router) { }
+  charactersToShow: Character[];
 
   ngOnInit() {
   }
 
+  navigateToCharacterDetails(id: number) {
+    this.router.navigate(['/character', id])
+  }
+
   getData() {
-    this.dataStorageService.getAllData().subscribe(resp => console.log(resp))
+    this.dataStorageService.getAllData()
+      .subscribe(characters => {
+        this.charactersToShow = characters;
+        console.log(characters)
+      })
   }
 
 }

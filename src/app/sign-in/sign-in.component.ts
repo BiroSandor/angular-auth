@@ -50,14 +50,10 @@ export class SignInComponent implements OnInit {
     }
     const email = this.authForm.value.email;
     const password = this.authForm.value.password;
-    this.authService.signUp(email, password).subscribe(response => {
-      console.log(response)
-      this.isLoading = false;
-    },
-    errorMessage => {
-      this.notificationService.notify(errorMessage, 4000);
-      this.isLoading = false;
+    this.authService.signUp(email, password)
+      .pipe(tap(()=>this.isLoading = false))
+      .subscribe(response => {
+        this.router.navigate(['/home']);
     });
   }
-
 }

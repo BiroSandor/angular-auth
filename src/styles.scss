@@ -22,3 +22,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .full-width {
   width: 100%;
 }
+
+.box {
+  padding: 50px;
+}
+
+.flex-container__around {
+  display: flex;
+  justify-content: space-around;
+}

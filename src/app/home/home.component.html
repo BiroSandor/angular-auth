@@ -2,4 +2,20 @@
   <h1>Click the button to fetch the characters!</h1>
   <button mat-raised-button color="accent" (click)="getData()">Get the characters</button>
 </div>
-
+<div class="box flex-container__around">
+  <mat-card class="character-card" *ngFor="let character of charactersToShow; let i = index">
+    <mat-card-header>
+      <div mat-card-avatar class="header-image"></div>
+      <mat-card-title>{{character.name}}</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image src={{character.picture}}>
+    <mat-card-content>
+      <p>
+        {{character.description}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="navigateToCharacterDetails(character.id)">MORE</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
