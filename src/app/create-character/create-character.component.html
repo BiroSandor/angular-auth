@@ -1,0 +1,22 @@
+<div>
+  <div class="header-container">
+    <h1>Create new character</h1>
+  </div>
+  <mat-card class="offset-3 centered">
+    <form [formGroup]="createForm" (ngSubmit)="createCharacter()" class="form">
+      <mat-form-field class="form-field full-width">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" [formControlName]="'name'">
+      </mat-form-field>
+      <mat-form-field class="form-field full-width">
+        <mat-label>Description</mat-label>
+        <input matInput type="text" [formControlName]="'description'">
+      </mat-form-field>
+      <mat-form-field class="form-field full-width">
+        <mat-label>Picture Url</mat-label>
+        <input matInput type="text" [formControlName]="'picture'">
+      </mat-form-field>
+      <button mat-raised-button color="accent" type="submit" [disabled]="!createForm.valid">Create</button>
+  </form>
+  </mat-card>
+</div>

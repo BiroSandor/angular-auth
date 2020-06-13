@@ -30,4 +30,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .flex-container__around {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.header-container {
+  text-align: center;
+  margin: 0 auto;
 }

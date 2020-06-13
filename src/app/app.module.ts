@@ -21,6 +21,7 @@ import { HomeComponent } from './home/home.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 import { AuthInterceptorService } from './_core/auth/_service/auth-interceptor.service';
 import { CharacterComponent } from './character/character.component';
+import { CreateCharacterComponent } from './create-character/create-character.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { CharacterComponent } from './character/character.component';
     SignInComponent,
     HomeComponent,
     SideMenuComponent,
-    CharacterComponent
+    CharacterComponent,
+    CreateCharacterComponent
   ],
   imports: [
     BrowserModule,

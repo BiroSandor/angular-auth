@@ -4,7 +4,7 @@ import { ErrorHandlerService } from '../_core/error-handler/error-handler.servic
 import { map } from 'rxjs/operators';
 import { Character } from '../_model/character.model';
 import { Observable } from 'rxjs';
-import { FirebaseResponse } from '../_model/firebase-response.model';
+import { FirebaseResponse, FirebaseNewCharacterResponse } from '../_model/firebase-response.model';
 import { mapFirebaseResponseToListOfCharacters } from './map-firebase-response-to-list-of-characters';
 
 
@@ -25,8 +25,15 @@ export class DataStorageService {
     )
   }
 
-  getDataById(id: number): Observable<Character> {
+  getDataById(id: string): Observable<Character> {
     return this.http.get<Character>(`${this.baseUrl}/${id}.json`)
+    .pipe(
+      this.errorHandlerService.handleError(),
+    )
+  }
+
+  createCharacter(newCharacter: Character): Observable<FirebaseNewCharacterResponse> {
+    return this.http.post<FirebaseNewCharacterResponse>(`${this.baseUrl}.json`, newCharacter)
     .pipe(
       this.errorHandlerService.handleError(),
     )

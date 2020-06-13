@@ -15,7 +15,6 @@ export class SignInComponent implements OnInit {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly authService: AuthService,
-    private readonly notificationService: NotificationService,
     private readonly router: Router
     ) { }
   
