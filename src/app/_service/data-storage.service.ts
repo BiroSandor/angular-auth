@@ -38,4 +38,11 @@ export class DataStorageService {
       this.errorHandlerService.handleError(),
     )
   }
+
+  deleteCharacter(id: string): Observable<void>{
+    return this.http.delete<void>(`${this.baseUrl}/${id}.json`)
+    .pipe(
+      this.errorHandlerService.handleError(),
+    )
+  }
 }

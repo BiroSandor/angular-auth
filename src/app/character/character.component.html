@@ -1,4 +1,16 @@
 <div *ngIf="characterToShow" class="box">
-  <h1>{{characterToShow.name}} Details Page</h1>
+  <div class="flex-container__start">
+    <button color="accent" mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <h1>{{characterToShow.name}} Details Page</h1>
+</div>
   <p>{{characterToShow.description}}</p>
 </div>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="deleteCharacter()">
+    <mat-icon color="accent">delete</mat-icon>
+    <span>Delete</span>
+  </button>
+</mat-menu>

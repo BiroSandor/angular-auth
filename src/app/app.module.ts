@@ -13,6 +13,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
 import { AppComponent } from './app.component';
 import { LoadingSpinnerComponent } from './_shared/loading-spinner/loading-spinner.component';
@@ -46,7 +48,9 @@ import { CreateCharacterComponent } from './create-character/create-character.co
     MatSnackBarModule,
     MatChipsModule,
     MatSidenavModule,
-    MatIconModule
+    MatIconModule,
+    MatMenuModule,
+    MatBottomSheetModule
   ],
   providers: [
     { provide: APP_INITIALIZER, useFactory: ConfigFactory, deps: [ConfigService], multi: true },

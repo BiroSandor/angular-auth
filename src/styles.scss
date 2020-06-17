@@ -33,6 +33,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   flex-wrap: wrap;
 }
 
+.flex-container__start {
+  display: flex;
+  justify-content: flex-start;
+}
+
 .header-container {
   text-align: center;
   margin: 0 auto;

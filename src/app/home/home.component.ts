@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
-  navigateToCharacterDetails(id: number) {
+  navigateToCharacterDetails(id: string) {
     this.router.navigate(['/character', id])
   }
 
